@@ -6,10 +6,10 @@ let checkauth = (authreq,authres,next)=>
 	try
 	{
 	let token = authreq.headers.authorization.split(' ')[1]
-	console.log(`In header: ${token}`)
+	// console.log(`In header: ${token}`)
 	jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
 		if(decoded){
-			console.log(decoded)
+			console.log("Authentican Sucess")
 			next()
 		}
 		else{

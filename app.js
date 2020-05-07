@@ -1,41 +1,39 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const dot_env = require('dotenv').config()
 const Joi = require('@hapi/joi');
-const post = require('./routes/post');
 const user = require('./routes/user');
+const post = require('./routes/post');
 
 
 const app = express();
 
-app.use(express.json()); 
+app.use(express.json());
+
 const port = 5000;
 
 // Mongoose Connection
-mongoose.connect('mongodb://localhost/genzclan', 
-	{dbName:'genzclan',useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DBURI, 
+	{dbName:'wrtpegn',useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
+
 
 let db = mongoose.connection;
 db.on('error', ()=>console.log("DB Connection Error"));
 db.once('open',()=>console.log('Connction DB Done'));
 
 // Routes
-app.use('/post', post)
 app.use('/user',user)
+app.use('/post', post)
+
 
 
 app.get('/', (req, res)=>{
 	res.json({
-		"Name":"Gen-Z-clan",
+		"Name":"WriteUp-Engine",
 		"status":"Active"
 	})
 });
-
-// app.get('/db',(req,res)=>{
-// 	postmodel.find({},(err,result)=>{
-// 		err ? console.log(err) : console.log(result)
-// 	})
-// });
 
 
 console.clear()

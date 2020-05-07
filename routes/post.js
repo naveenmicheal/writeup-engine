@@ -15,8 +15,8 @@ const postschema = Joi.object().keys({
     content:Joi.string().min(2).trim().max(1000),
     extra:Joi.string().max(1000),
     authorname:Joi.string().required(),
-    authorid:Joi.string().min(2).trim().max(500),
-    threadid:Joi.string().min(2).trim().max(500),
+    authorid:Joi.number(),
+    threadid:Joi.number(),
 });
 
 router.get('/', auth ,(req, res)=>{

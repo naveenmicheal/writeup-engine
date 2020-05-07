@@ -23,17 +23,19 @@ const schema = Joi.object().keys({
 
 router.post('/signup', (req, res) => {
 
-	bcrypt.hash(req.body.password, rounds, (err, hash) => {x
+	bcrypt.hash(req.body.password, rounds, (err, hash) => {
+
 		const new_user = {
 			username: req.body.username,
 			name: req.body.name,
 			email: req.body.email,
 			password: hash,
-			// created: req.body.created,
 			created: new Date().toString(),
 			info: req.connection.remoteAddress
 		}
+
 		const validate = schema.validate(new_user)
+
 		if (validate.error == null) {
 			const new_user_obj = new usermodel(new_user)
 			new_user_obj.save((err, result) => {
@@ -61,11 +63,11 @@ router.post('/login',(req,res)=>{
 	let inpass = req.body.password;
 	usermodel.findOne({'email':inemail},(err,result)=>{
 		if(result){
-				console.log(result)
+				// console.log(result)
 				bcrypt.compare(inpass, result['password'], function(passerr, passres) {
     			// passres ? res.json(passres) : res.json(passerr) 
     			if(passres){
-    				// res.status(200).json("Password is ok, DONE")
+    	
     				console.log("Password is ok")
     				jwt.sign({
     					id:result['_id'],

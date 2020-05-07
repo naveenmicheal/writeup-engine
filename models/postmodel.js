@@ -8,7 +8,7 @@ const postschema = mongoose.Schema({
 	},
 	tags:{
 		type:Array,
-		required:true,
+		// required:true,
 		// unique: true
 	},
 	content:{
@@ -27,12 +27,12 @@ const postschema = mongoose.Schema({
 		unique: false
 	},
 	authorid:{
-		type:String,
+		type:Number,
 		required:true,
 		unique: false
 	},
 	threadid:{
-		type:String,
+		type:Number,
 		required:true,
 		unique: true
 	},
